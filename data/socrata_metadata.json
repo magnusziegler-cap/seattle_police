@@ -1,0 +1,1871 @@
+{
+    "attributionLink": "http://www.seattle.gov/police",
+    "viewType": "tabular",
+    "rowsUpdatedAt": 1531409113,
+    "attribution": "Seattle Police",
+    "id": "28ny-9ts8",
+    "disabledFeatureFlags": [
+        "allow_comments"
+    ],
+    "license": {
+        "name": "Public Domain"
+    },
+    "numberOfComments": 0,
+    "downloadCount": 525,
+    "metadata": {
+        "custom_fields": {
+            "Data Owner": {
+                "Department": "Seattle Police Department"
+            },
+            "Refresh Frequency": {
+                "Frequency": "Daily"
+            }
+        },
+        "renderTypeConfig": {
+            "visible": {
+                "table": true
+            }
+        },
+        "rdfSubject": "0",
+        "jsonQuery": {
+            "order": [
+                {
+                    "ascending": true,
+                    "columnFieldName": "resolution"
+                }
+            ]
+        },
+        "availableDisplayTypes": [
+            "table",
+            "fatrow",
+            "page"
+        ],
+        "rowLabel": "A unique record of a Terry Stop, as reported by the officer conducting the stop."
+    },
+    "description": "This data represents records of police reported stops under Terry v. Ohio, 392 U.S. 1 (1968). Each row represents a unique stop. \r\n\r\n- Each record contains perceived demographics of the subject, as reported by the officer making the stop and officer demographics as reported to the Seattle Police Department, for employment purposes. \r\n\r\n- Where available, data elements from the associated Computer Aided Dispatch (CAD) event (e.g. Call Type, Initial Call Type, Final Call Type) are included.",
+    "oid": 28867123,
+    "rights": [
+        "read"
+    ],
+    "createdAt": 1492044416,
+    "licenseId": "PUBLIC_DOMAIN",
+    "tableAuthor": {
+        "displayName": "spd2internetData",
+        "type": "interactive",
+        "screenName": "spd2internetData",
+        "id": "avyg-ej9j"
+    },
+    "category": "Public Safety",
+    "publicationAppendEnabled": false,
+    "provenance": "official",
+    "publicationDate": 1526949649,
+    "totalTimesRated": 0,
+    "displayType": "table",
+    "viewLastModified": 1526950091,
+    "grants": [
+        {
+            "inherited": false,
+            "flags": [
+                "public"
+            ],
+            "type": "viewer"
+        }
+    ],
+    "tags": [
+        "police",
+        "terry stops",
+        "detentions"
+    ],
+    "publicationStage": "published",
+    "owner": {
+        "displayName": "spd2internetData",
+        "type": "interactive",
+        "screenName": "spd2internetData",
+        "id": "avyg-ej9j"
+    },
+    "query": {
+        "orderBys": [
+            {
+                "ascending": true,
+                "expression": {
+                    "columnId": 360492251,
+                    "type": "column"
+                }
+            }
+        ]
+    },
+    "tableId": 15215725,
+    "columns": [
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101127,
+            "id": 360492247,
+            "dataTypeName": "text",
+            "position": 1,
+            "name": "Subject Age Group",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "-",
+                        "count": 20
+                    },
+                    {
+                        "item": "18 - 25",
+                        "count": 19
+                    },
+                    {
+                        "item": "26 - 35",
+                        "count": 18
+                    },
+                    {
+                        "item": "46 - 55",
+                        "count": 17
+                    },
+                    {
+                        "item": "36 - 45",
+                        "count": 16
+                    },
+                    {
+                        "item": "1 - 17",
+                        "count": 15
+                    },
+                    {
+                        "item": "56 and Above",
+                        "count": 14
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "56 and Above",
+                "smallest": "-"
+            },
+            "fieldName": "subjectagegroup",
+            "width": 280,
+            "description": "Subject Age Group (10 year increments) as reported by the officer. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101128,
+            "id": 360492248,
+            "dataTypeName": "text",
+            "position": 2,
+            "name": "Subject ID",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "19766",
+                        "count": 19
+                    },
+                    {
+                        "item": "19772",
+                        "count": 18
+                    },
+                    {
+                        "item": "19786",
+                        "count": 17
+                    },
+                    {
+                        "item": "19795",
+                        "count": 16
+                    },
+                    {
+                        "item": "19802",
+                        "count": 15
+                    },
+                    {
+                        "item": "19804",
+                        "count": 14
+                    },
+                    {
+                        "item": "19815",
+                        "count": 13
+                    },
+                    {
+                        "item": "19824",
+                        "count": 12
+                    },
+                    {
+                        "item": "19829",
+                        "count": 11
+                    },
+                    {
+                        "item": "19832",
+                        "count": 10
+                    },
+                    {
+                        "item": "19833",
+                        "count": 9
+                    },
+                    {
+                        "item": "19837",
+                        "count": 8
+                    },
+                    {
+                        "item": "19846",
+                        "count": 7
+                    },
+                    {
+                        "item": "19848",
+                        "count": 6
+                    },
+                    {
+                        "item": "19853",
+                        "count": 5
+                    },
+                    {
+                        "item": "19856",
+                        "count": 4
+                    },
+                    {
+                        "item": "19859",
+                        "count": 3
+                    },
+                    {
+                        "item": "19870",
+                        "count": 2
+                    },
+                    {
+                        "item": "19894",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "NULL",
+                "smallest": "100"
+            },
+            "fieldName": "subjectid",
+            "width": 208,
+            "description": "Key, generated daily, identifying unique subjects in the dataset using a character to character match of first name and last name. \"Null\" values indicate an \"anonymous\" or \"unidentified\" subject. Subjects of a Terry Stop are not required to present identification. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101129,
+            "id": 360492249,
+            "dataTypeName": "text",
+            "position": 3,
+            "name": "GO / SC Num",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "20150000249972",
+                        "count": 20
+                    },
+                    {
+                        "item": "20160000000737",
+                        "count": 19
+                    },
+                    {
+                        "item": "20170000003243",
+                        "count": 18
+                    },
+                    {
+                        "item": "20160000417614",
+                        "count": 17
+                    },
+                    {
+                        "item": "20170000168951",
+                        "count": 16
+                    },
+                    {
+                        "item": "20150000172085",
+                        "count": 15
+                    },
+                    {
+                        "item": "20160000030672",
+                        "count": 14
+                    },
+                    {
+                        "item": "20170000004198",
+                        "count": 13
+                    },
+                    {
+                        "item": "20150000191270",
+                        "count": 12
+                    },
+                    {
+                        "item": "20170000135699",
+                        "count": 11
+                    },
+                    {
+                        "item": "20150000221782",
+                        "count": 10
+                    },
+                    {
+                        "item": "20180000002149",
+                        "count": 9
+                    },
+                    {
+                        "item": "20160000429562",
+                        "count": 8
+                    },
+                    {
+                        "item": "20170000456649",
+                        "count": 7
+                    },
+                    {
+                        "item": "20170000438594",
+                        "count": 6
+                    },
+                    {
+                        "item": "20180000108882",
+                        "count": 5
+                    },
+                    {
+                        "item": "20170000001631",
+                        "count": 4
+                    },
+                    {
+                        "item": "20170000003757",
+                        "count": 3
+                    },
+                    {
+                        "item": "20150000286017",
+                        "count": 2
+                    },
+                    {
+                        "item": "20170000200120",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "20180000904801",
+                "smallest": "20090000228667"
+            },
+            "fieldName": "go_num",
+            "width": 172,
+            "description": "General Offense or Street Check number, relating the Terry Stop to the parent report. This field may have a one to many relationship in the data.  "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101130,
+            "id": 360492250,
+            "dataTypeName": "text",
+            "position": 4,
+            "name": "Terry Stop ID",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "12935",
+                        "count": 20
+                    },
+                    {
+                        "item": "18549",
+                        "count": 19
+                    },
+                    {
+                        "item": "29191",
+                        "count": 18
+                    },
+                    {
+                        "item": "24376",
+                        "count": 17
+                    },
+                    {
+                        "item": "27544",
+                        "count": 16
+                    },
+                    {
+                        "item": "10875",
+                        "count": 15
+                    },
+                    {
+                        "item": "18060",
+                        "count": 14
+                    },
+                    {
+                        "item": "30306",
+                        "count": 13
+                    },
+                    {
+                        "item": "13038",
+                        "count": 12
+                    },
+                    {
+                        "item": "27045",
+                        "count": 11
+                    },
+                    {
+                        "item": "12201",
+                        "count": 10
+                    },
+                    {
+                        "item": "41046",
+                        "count": 9
+                    },
+                    {
+                        "item": "24546",
+                        "count": 8
+                    },
+                    {
+                        "item": "34962",
+                        "count": 7
+                    },
+                    {
+                        "item": "34122",
+                        "count": 6
+                    },
+                    {
+                        "item": "39279",
+                        "count": 5
+                    },
+                    {
+                        "item": "27227",
+                        "count": 4
+                    },
+                    {
+                        "item": "29795",
+                        "count": 3
+                    },
+                    {
+                        "item": "13722",
+                        "count": 2
+                    },
+                    {
+                        "item": "28031",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "41879",
+                "smallest": "10010"
+            },
+            "fieldName": "terry_stop_id",
+            "width": 158,
+            "description": "Key identifying unique Terry Stop reports. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 62069265,
+            "id": 360492251,
+            "dataTypeName": "text",
+            "position": 5,
+            "name": "Stop Resolution",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "Street Check",
+                        "count": 20
+                    },
+                    {
+                        "item": "GO Report",
+                        "count": 19
+                    },
+                    {
+                        "item": "GO for Prosecutorial Referral",
+                        "count": 18
+                    },
+                    {
+                        "item": "Arrest with GO or Supplemental",
+                        "count": 17
+                    },
+                    {
+                        "item": "-",
+                        "count": 16
+                    },
+                    {
+                        "item": "Citation / Infraction",
+                        "count": 15
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "Street Check",
+                "smallest": "-"
+            },
+            "fieldName": "resolution",
+            "width": 135,
+            "description": "Resolution of the stop as reported by the officer."
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 62069318,
+            "id": 360492252,
+            "dataTypeName": "text",
+            "position": 6,
+            "name": "Weapon Type",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "None",
+                        "count": 20
+                    },
+                    {
+                        "item": "-",
+                        "count": 19
+                    },
+                    {
+                        "item": "Lethal Cutting Instrument",
+                        "count": 18
+                    },
+                    {
+                        "item": "Handgun",
+                        "count": 17
+                    },
+                    {
+                        "item": "Firearm Other",
+                        "count": 16
+                    },
+                    {
+                        "item": "Club, Blackjack, Brass Knuckles",
+                        "count": 15
+                    },
+                    {
+                        "item": "Club",
+                        "count": 14
+                    },
+                    {
+                        "item": "Blackjack",
+                        "count": 13
+                    },
+                    {
+                        "item": "Firearm (unk type)",
+                        "count": 12
+                    },
+                    {
+                        "item": "Shotgun",
+                        "count": 11
+                    },
+                    {
+                        "item": "Brass Knuckles",
+                        "count": 10
+                    },
+                    {
+                        "item": "Rifle",
+                        "count": 9
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "Shotgun",
+                "smallest": "-"
+            },
+            "fieldName": "weapon_type",
+            "width": 128,
+            "description": "Type of weapon, if any, identified during a search or frisk of the subject. Indicates \"None\" if no weapons was found. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101131,
+            "id": 360492253,
+            "dataTypeName": "text",
+            "position": 7,
+            "name": "Officer ID",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "1857",
+                        "count": 20
+                    },
+                    {
+                        "item": "2160",
+                        "count": 19
+                    },
+                    {
+                        "item": "1585",
+                        "count": 18
+                    },
+                    {
+                        "item": "1773",
+                        "count": 17
+                    },
+                    {
+                        "item": "1708",
+                        "count": 16
+                    },
+                    {
+                        "item": "1106",
+                        "count": 15
+                    },
+                    {
+                        "item": "1891",
+                        "count": 14
+                    },
+                    {
+                        "item": "2419",
+                        "count": 13
+                    },
+                    {
+                        "item": "1831",
+                        "count": 12
+                    },
+                    {
+                        "item": "1814",
+                        "count": 11
+                    },
+                    {
+                        "item": "1871",
+                        "count": 10
+                    },
+                    {
+                        "item": "2115",
+                        "count": 9
+                    },
+                    {
+                        "item": "1850",
+                        "count": 8
+                    },
+                    {
+                        "item": "1805",
+                        "count": 7
+                    },
+                    {
+                        "item": "969",
+                        "count": 6
+                    },
+                    {
+                        "item": "1213",
+                        "count": 5
+                    },
+                    {
+                        "item": "1607",
+                        "count": 4
+                    },
+                    {
+                        "item": "1783",
+                        "count": 3
+                    },
+                    {
+                        "item": "2097",
+                        "count": 2
+                    },
+                    {
+                        "item": "2311",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "971",
+                "smallest": "102"
+            },
+            "fieldName": "officerid",
+            "width": 208,
+            "description": "Key identifying unique officers in the dataset. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101132,
+            "id": 360492254,
+            "dataTypeName": "text",
+            "position": 8,
+            "name": "Officer YOB",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "1986",
+                        "count": 20
+                    },
+                    {
+                        "item": "1967",
+                        "count": 19
+                    },
+                    {
+                        "item": "1987",
+                        "count": 18
+                    },
+                    {
+                        "item": "1990",
+                        "count": 17
+                    },
+                    {
+                        "item": "1980",
+                        "count": 16
+                    },
+                    {
+                        "item": "1988",
+                        "count": 15
+                    },
+                    {
+                        "item": "1983",
+                        "count": 14
+                    },
+                    {
+                        "item": "1992",
+                        "count": 13
+                    },
+                    {
+                        "item": "1984",
+                        "count": 12
+                    },
+                    {
+                        "item": "1970",
+                        "count": 11
+                    },
+                    {
+                        "item": "1977",
+                        "count": 10
+                    },
+                    {
+                        "item": "1976",
+                        "count": 9
+                    },
+                    {
+                        "item": "1982",
+                        "count": 8
+                    },
+                    {
+                        "item": "1966",
+                        "count": 7
+                    },
+                    {
+                        "item": "1973",
+                        "count": 6
+                    },
+                    {
+                        "item": "1989",
+                        "count": 5
+                    },
+                    {
+                        "item": "1971",
+                        "count": 4
+                    },
+                    {
+                        "item": "1960",
+                        "count": 3
+                    },
+                    {
+                        "item": "1981",
+                        "count": 2
+                    },
+                    {
+                        "item": "1975",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "NULL",
+                "smallest": "1900"
+            },
+            "fieldName": "officer_yob",
+            "width": 232,
+            "description": "Year of birth, as reported by the officer. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101133,
+            "id": 360492255,
+            "dataTypeName": "text",
+            "position": 9,
+            "name": "Officer Gender",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "M",
+                        "count": 20
+                    },
+                    {
+                        "item": "F",
+                        "count": 19
+                    },
+                    {
+                        "item": "N",
+                        "count": 18
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "N",
+                "smallest": "F"
+            },
+            "fieldName": "officer_gender",
+            "width": 268,
+            "description": "Gender of the officer, as reported by the officer. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101134,
+            "id": 360492256,
+            "dataTypeName": "text",
+            "position": 10,
+            "name": "Officer Race",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "White",
+                        "count": 20
+                    },
+                    {
+                        "item": "Asian",
+                        "count": 19
+                    },
+                    {
+                        "item": "Hispanic or Latino",
+                        "count": 18
+                    },
+                    {
+                        "item": "Not Specified",
+                        "count": 17
+                    },
+                    {
+                        "item": "Black or African American",
+                        "count": 16
+                    },
+                    {
+                        "item": "Two or More Races",
+                        "count": 15
+                    },
+                    {
+                        "item": "American Indian/Alaska Native",
+                        "count": 14
+                    },
+                    {
+                        "item": "Nat Hawaiian/Oth Pac Islander",
+                        "count": 13
+                    },
+                    {
+                        "item": "Unknown",
+                        "count": 12
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "White",
+                "smallest": "American Indian/Alaska Native"
+            },
+            "fieldName": "officer_race",
+            "width": 244,
+            "description": "Race of the officer, as reported by the officer. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101135,
+            "id": 360492257,
+            "dataTypeName": "text",
+            "position": 11,
+            "name": "Subject Perceived Race",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "Unknown",
+                        "count": 20
+                    },
+                    {
+                        "item": "White",
+                        "count": 19
+                    },
+                    {
+                        "item": "Black",
+                        "count": 18
+                    },
+                    {
+                        "item": "Asian",
+                        "count": 17
+                    },
+                    {
+                        "item": "American Indian / Alaskan Native",
+                        "count": 16
+                    },
+                    {
+                        "item": "Hispanic",
+                        "count": 15
+                    },
+                    {
+                        "item": "-",
+                        "count": 14
+                    },
+                    {
+                        "item": "Multi-Racial",
+                        "count": 13
+                    },
+                    {
+                        "item": "Other",
+                        "count": 12
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "White",
+                "smallest": "-"
+            },
+            "fieldName": "subjectrace",
+            "width": 232,
+            "description": "Perceived race of the subject, as reported by the officer.  "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101136,
+            "id": 360492258,
+            "dataTypeName": "text",
+            "position": 12,
+            "name": "Subject Perceived Gender",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "Unable to Determine",
+                        "count": 20
+                    },
+                    {
+                        "item": "Male",
+                        "count": 19
+                    },
+                    {
+                        "item": "Female",
+                        "count": 18
+                    },
+                    {
+                        "item": "-",
+                        "count": 17
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "Unable to Determine",
+                "smallest": "-"
+            },
+            "fieldName": "subjectgender",
+            "width": 256,
+            "description": "Perceived gender of the subject, as reported by the officer. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101137,
+            "id": 360492259,
+            "dataTypeName": "text",
+            "position": 13,
+            "name": "Reported Date",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "2015-07-21",
+                        "count": 20
+                    },
+                    {
+                        "item": "2016-02-16",
+                        "count": 19
+                    },
+                    {
+                        "item": "2017-07-28",
+                        "count": 18
+                    },
+                    {
+                        "item": "2016-11-18",
+                        "count": 17
+                    },
+                    {
+                        "item": "2017-05-13",
+                        "count": 16
+                    },
+                    {
+                        "item": "2015-05-25",
+                        "count": 15
+                    },
+                    {
+                        "item": "2016-01-26",
+                        "count": 14
+                    },
+                    {
+                        "item": "2017-09-08",
+                        "count": 13
+                    },
+                    {
+                        "item": "2015-06-08",
+                        "count": 12
+                    },
+                    {
+                        "item": "2017-04-18",
+                        "count": 11
+                    },
+                    {
+                        "item": "2015-06-30",
+                        "count": 10
+                    },
+                    {
+                        "item": "2018-06-14",
+                        "count": 9
+                    },
+                    {
+                        "item": "2016-11-29",
+                        "count": 8
+                    },
+                    {
+                        "item": "2017-12-11",
+                        "count": 7
+                    },
+                    {
+                        "item": "2017-11-28",
+                        "count": 6
+                    },
+                    {
+                        "item": "2018-03-28",
+                        "count": 5
+                    },
+                    {
+                        "item": "2017-04-29",
+                        "count": 4
+                    },
+                    {
+                        "item": "2017-08-19",
+                        "count": 3
+                    },
+                    {
+                        "item": "2015-08-17",
+                        "count": 2
+                    },
+                    {
+                        "item": "2017-06-04",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "2018-07-11",
+                "smallest": "2015-03-15"
+            },
+            "fieldName": "reported_date",
+            "width": 256,
+            "description": "Date the report was filed in the Records Management System (RMS). Not necessarily the date the stop occurred but generally within 1 day. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101138,
+            "id": 360492260,
+            "dataTypeName": "text",
+            "position": 14,
+            "name": "Reported Time",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "16:53:00.0000000",
+                        "count": 20
+                    },
+                    {
+                        "item": "16:29:00.0000000",
+                        "count": 19
+                    },
+                    {
+                        "item": "17:53:00.0000000",
+                        "count": 18
+                    },
+                    {
+                        "item": "20:29:00.0000000",
+                        "count": 17
+                    },
+                    {
+                        "item": "23:47:00.0000000",
+                        "count": 16
+                    },
+                    {
+                        "item": "17:58:00.0000000",
+                        "count": 15
+                    },
+                    {
+                        "item": "17:08:00.0000000",
+                        "count": 14
+                    },
+                    {
+                        "item": "23:37:00.0000000",
+                        "count": 13
+                    },
+                    {
+                        "item": "19:08:00.0000000",
+                        "count": 12
+                    },
+                    {
+                        "item": "19:39:00.0000000",
+                        "count": 11
+                    },
+                    {
+                        "item": "22:10:00.0000000",
+                        "count": 10
+                    },
+                    {
+                        "item": "00:30:00.0000000",
+                        "count": 9
+                    },
+                    {
+                        "item": "11:24:00.0000000",
+                        "count": 8
+                    },
+                    {
+                        "item": "23:01:00.0000000",
+                        "count": 7
+                    },
+                    {
+                        "item": "02:39:00.0000000",
+                        "count": 6
+                    },
+                    {
+                        "item": "12:50:00.0000000",
+                        "count": 5
+                    },
+                    {
+                        "item": "00:02:00.0000000",
+                        "count": 4
+                    },
+                    {
+                        "item": "14:18:00.0000000",
+                        "count": 3
+                    },
+                    {
+                        "item": "11:02:00.0000000",
+                        "count": 2
+                    },
+                    {
+                        "item": "23:39:00.0000000",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "23:59:00.0000000",
+                "smallest": "00:00:00.0000000"
+            },
+            "fieldName": "reported_time",
+            "width": 256,
+            "description": "Time the stop was reported in the Records Management System (RMS). Not the time the stop occurred but generally within 10 hours. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101139,
+            "id": 360492261,
+            "dataTypeName": "text",
+            "position": 15,
+            "name": "Initial Call Type",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "ASLT - IP/JO - WITH OR W/O WPNS (NO SHOOTINGS)",
+                        "count": 19
+                    },
+                    {
+                        "item": "DISTURBANCE, MISCELLANEOUS/OTHER",
+                        "count": 18
+                    },
+                    {
+                        "item": "WEAPN-IP/JO-GUN,DEADLY WPN (NO THRT/ASLT/DIST)",
+                        "count": 17
+                    },
+                    {
+                        "item": "SHOPLIFT - THEFT",
+                        "count": 16
+                    },
+                    {
+                        "item": "FIGHT - IP - PHYSICAL (NO WEAPONS)",
+                        "count": 15
+                    },
+                    {
+                        "item": "DIST - IP/JO - DV DIST - NO ASLT",
+                        "count": 14
+                    },
+                    {
+                        "item": "THREATS (INCLS IN-PERSON/BY PHONE/IN WRITING)",
+                        "count": 13
+                    },
+                    {
+                        "item": "ROBBERY - IP/JO (INCLUDES STRONG ARM)",
+                        "count": 12
+                    },
+                    {
+                        "item": "PROPERTY - DAMAGE",
+                        "count": 11
+                    },
+                    {
+                        "item": "SUSPICIOUS STOP - OFFICER INITIATED ONVIEW",
+                        "count": 10
+                    },
+                    {
+                        "item": "THEFT (DOES NOT INCLUDE SHOPLIFT OR SVCS)",
+                        "count": 9
+                    },
+                    {
+                        "item": "ASLT - WITH OR W/O WEAPONS (NO SHOOTINGS)",
+                        "count": 8
+                    },
+                    {
+                        "item": "SUSPICIOUS PERSON, VEHICLE OR INCIDENT",
+                        "count": 7
+                    },
+                    {
+                        "item": "NARCOTICS - VIOLATIONS (LOITER, USE, SELL, NARS)",
+                        "count": 6
+                    },
+                    {
+                        "item": "ASLT - IP/JO - DV",
+                        "count": 5
+                    },
+                    {
+                        "item": "TRESPASS",
+                        "count": 4
+                    },
+                    {
+                        "item": "BURG - IP/JO - RES (INCL UNOCC STRUCTURES)",
+                        "count": 3
+                    },
+                    {
+                        "item": "TRAFFIC STOP - OFFICER INITIATED ONVIEW",
+                        "count": 2
+                    },
+                    {
+                        "item": "WARRANT - FELONY PICKUP",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "WEAPN-IP/JO-GUN,DEADLY WPN (NO THRT/ASLT/DIST)",
+                "smallest": "ALARM - ATM MACHINE, FREE STANDING"
+            },
+            "fieldName": "initialcalltype",
+            "width": 280,
+            "description": "Initial classification of the call as assigned by 911. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101140,
+            "id": 360492262,
+            "dataTypeName": "text",
+            "position": 16,
+            "name": "Final Call Type",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "--CRISIS COMPLAINT - GENERAL",
+                        "count": 19
+                    },
+                    {
+                        "item": "--DISTURBANCE - OTHER",
+                        "count": 18
+                    },
+                    {
+                        "item": "--ASSAULTS - HARASSMENT, THREATS",
+                        "count": 17
+                    },
+                    {
+                        "item": "--SUSPICIOUS CIRCUM. - SUSPICIOUS PERSON",
+                        "count": 16
+                    },
+                    {
+                        "item": "--WARRANT SERVICES - MISDEMEANOR",
+                        "count": 15
+                    },
+                    {
+                        "item": "--THEFT - SHOPLIFT",
+                        "count": 14
+                    },
+                    {
+                        "item": "--WEAPON, PERSON WITH - GUN",
+                        "count": 13
+                    },
+                    {
+                        "item": "--DV - ARGUMENTS, DISTURBANCE (NO ARREST)",
+                        "count": 12
+                    },
+                    {
+                        "item": "--DISTURBANCE - FIGHT",
+                        "count": 11
+                    },
+                    {
+                        "item": "--PROPERTY DEST (DAMG)",
+                        "count": 10
+                    },
+                    {
+                        "item": "--ROBBERY - ARMED",
+                        "count": 9
+                    },
+                    {
+                        "item": "--SUSPICIOUS CIRCUM. - SUSPICIOUS VEHICLE",
+                        "count": 8
+                    },
+                    {
+                        "item": "--ASSAULTS, OTHER",
+                        "count": 7
+                    },
+                    {
+                        "item": "--ROBBERY - STRONG ARM",
+                        "count": 6
+                    },
+                    {
+                        "item": "--THEFT - ALL OTHER",
+                        "count": 5
+                    },
+                    {
+                        "item": "--PROWLER - TRESPASS",
+                        "count": 4
+                    },
+                    {
+                        "item": "--DV - DOMESTIC VIOL/ASLT (ARREST MANDATORY)",
+                        "count": 3
+                    },
+                    {
+                        "item": "--NARCOTICS - OTHER",
+                        "count": 2
+                    },
+                    {
+                        "item": "--WARRANT SERVICES - FELONY",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "--WEAPON,PERSON WITH - OTHER WEAPON",
+                "smallest": "--ALARM-COMM (INC BANK, ATM, SCHOOLS, BSN)"
+            },
+            "fieldName": "finalcalltype",
+            "width": 256,
+            "description": "Final classification of the call as assigned by the primary officer closing the event. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101141,
+            "id": 360492263,
+            "dataTypeName": "text",
+            "position": 17,
+            "name": "Call Type",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "911",
+                        "count": 19
+                    },
+                    {
+                        "item": "ONVIEW",
+                        "count": 18
+                    },
+                    {
+                        "item": "TELEPHONE OTHER, NOT 911",
+                        "count": 17
+                    },
+                    {
+                        "item": "ALARM CALL (NOT POLICE ALARM)",
+                        "count": 16
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "TELEPHONE OTHER, NOT 911",
+                "smallest": "911"
+            },
+            "fieldName": "calltype",
+            "width": 196,
+            "description": "How the call was received by the communication center. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101142,
+            "id": 360492264,
+            "dataTypeName": "text",
+            "position": 18,
+            "name": "Officer Squad",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "TRAINING - FIELD TRAINING SQUAD",
+                        "count": 20
+                    },
+                    {
+                        "item": "WEST PCT 1ST W - DAVID/MARY",
+                        "count": 19
+                    },
+                    {
+                        "item": "SOUTHWEST PCT 2ND W - FRANK",
+                        "count": 18
+                    },
+                    {
+                        "item": "NORTH PCT 2ND WATCH - NORTH BEATS",
+                        "count": 17
+                    },
+                    {
+                        "item": "WEST PCT 1ST W - KQ/DM RELIEF",
+                        "count": 16
+                    },
+                    {
+                        "item": "NULL",
+                        "count": 15
+                    },
+                    {
+                        "item": "WEST PCT 2ND W - D/M RELIEF",
+                        "count": 14
+                    },
+                    {
+                        "item": "WEST PCT 3RD W - DAVID",
+                        "count": 13
+                    },
+                    {
+                        "item": "NORTH PCT 2ND W - NORA",
+                        "count": 12
+                    },
+                    {
+                        "item": "SOUTH PCT 2ND W - ROBERT",
+                        "count": 11
+                    },
+                    {
+                        "item": "WEST PCT 3RD W - MARY",
+                        "count": 10
+                    },
+                    {
+                        "item": "NORTH PCT 3RD W - NORA",
+                        "count": 9
+                    },
+                    {
+                        "item": "WEST PCT 2ND W - KING",
+                        "count": 8
+                    },
+                    {
+                        "item": "SOUTH PCT 3RD W - ROBERT",
+                        "count": 7
+                    },
+                    {
+                        "item": "NORTH PCT 3RD W - B/N RELIEF",
+                        "count": 6
+                    },
+                    {
+                        "item": "SOUTH PCT 1ST W - ROBERT (OCEAN)",
+                        "count": 5
+                    },
+                    {
+                        "item": "EAST PCT 3RD W - E/G RELIEF",
+                        "count": 4
+                    },
+                    {
+                        "item": "NORTH PCT 3RD W - L/U RELIEF",
+                        "count": 3
+                    },
+                    {
+                        "item": "WEST PCT 2ND W - K/Q RELIEF",
+                        "count": 2
+                    },
+                    {
+                        "item": "SOUTH PCT 1ST W - R/S RELIEF (OCEAN)",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "ZOLD CRIME ANALYSIS UNIT - ANALYSTS",
+                "smallest": "AUTO THEFT"
+            },
+            "fieldName": "officersquad",
+            "width": 244,
+            "description": "Functional squad assignment (not budget) of the officer as reported by the Data Analytics Platform (DAP)."
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101143,
+            "id": 360492265,
+            "dataTypeName": "text",
+            "position": 19,
+            "name": "Arrest Flag",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "N",
+                        "count": 20
+                    },
+                    {
+                        "item": "Y",
+                        "count": 19
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "Y",
+                "smallest": "N"
+            },
+            "fieldName": "arrestflag",
+            "width": 220,
+            "description": "Indicator of whether a \"physical arrest\" was made, of the subject, during the Terry Stop. Does not necessarily reflect a report of an arrest in the Records Management System (RMS). "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101144,
+            "id": 360492266,
+            "dataTypeName": "text",
+            "position": 20,
+            "name": "Frisk Flag",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "N",
+                        "count": 20
+                    },
+                    {
+                        "item": "Y",
+                        "count": 19
+                    },
+                    {
+                        "item": "-",
+                        "count": 18
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "Y",
+                "smallest": "-"
+            },
+            "fieldName": "friskflag",
+            "width": 208,
+            "description": "Indicator of whether a \"frisk\" was conducted, by the officer, of the subject, during the Terry Stop. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101145,
+            "id": 360492267,
+            "dataTypeName": "text",
+            "position": 21,
+            "name": "Precinct",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "North",
+                        "count": 19
+                    },
+                    {
+                        "item": "West",
+                        "count": 18
+                    },
+                    {
+                        "item": "Southwest",
+                        "count": 17
+                    },
+                    {
+                        "item": "South",
+                        "count": 16
+                    },
+                    {
+                        "item": "East",
+                        "count": 15
+                    },
+                    {
+                        "item": "Unknown",
+                        "count": 14
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "West",
+                "smallest": "East"
+            },
+            "fieldName": "precinct",
+            "width": 196,
+            "description": "Precinct of the address associated with the underlying Computer Aided Dispatch (CAD) event. Not necessarily where the Terry Stop occurred. "
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101146,
+            "id": 360492268,
+            "dataTypeName": "text",
+            "position": 22,
+            "name": "Sector",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "B",
+                        "count": 19
+                    },
+                    {
+                        "item": "Q",
+                        "count": 18
+                    },
+                    {
+                        "item": "M",
+                        "count": 17
+                    },
+                    {
+                        "item": "N",
+                        "count": 16
+                    },
+                    {
+                        "item": "F",
+                        "count": 15
+                    },
+                    {
+                        "item": "U",
+                        "count": 14
+                    },
+                    {
+                        "item": "R",
+                        "count": 13
+                    },
+                    {
+                        "item": "E",
+                        "count": 12
+                    },
+                    {
+                        "item": "S",
+                        "count": 11
+                    },
+                    {
+                        "item": "L",
+                        "count": 10
+                    },
+                    {
+                        "item": "W",
+                        "count": 9
+                    },
+                    {
+                        "item": "J",
+                        "count": 8
+                    },
+                    {
+                        "item": "G",
+                        "count": 7
+                    },
+                    {
+                        "item": "C",
+                        "count": 6
+                    },
+                    {
+                        "item": "O",
+                        "count": 5
+                    },
+                    {
+                        "item": "D",
+                        "count": 4
+                    },
+                    {
+                        "item": "K",
+                        "count": 3
+                    },
+                    {
+                        "item": "99",
+                        "count": 2
+                    },
+                    {
+                        "item": "-",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "W",
+                "smallest": "-"
+            },
+            "fieldName": "sector",
+            "width": 172,
+            "description": "Sector of the address associated with the underlying Computer Aided Dispatch (CAD) event. Not necessarily where the Terry Stop occurred."
+        },
+        {
+            "renderTypeName": "text",
+            "tableColumnId": 46101147,
+            "id": 360492269,
+            "dataTypeName": "text",
+            "position": 23,
+            "name": "Beat",
+            "format": {
+                "displayStyle": "plain",
+                "align": "left"
+            },
+            "cachedContents": {
+                "null": 0,
+                "top": [
+                    {
+                        "item": "NULL",
+                        "count": 20
+                    },
+                    {
+                        "item": "B1",
+                        "count": 19
+                    },
+                    {
+                        "item": "N2",
+                        "count": 18
+                    },
+                    {
+                        "item": "F2",
+                        "count": 17
+                    },
+                    {
+                        "item": "U2",
+                        "count": 16
+                    },
+                    {
+                        "item": "R2",
+                        "count": 15
+                    },
+                    {
+                        "item": "E1",
+                        "count": 14
+                    },
+                    {
+                        "item": "E2",
+                        "count": 13
+                    },
+                    {
+                        "item": "M2",
+                        "count": 12
+                    },
+                    {
+                        "item": "M3",
+                        "count": 11
+                    },
+                    {
+                        "item": "K3",
+                        "count": 10
+                    },
+                    {
+                        "item": "L1",
+                        "count": 9
+                    },
+                    {
+                        "item": "N3",
+                        "count": 8
+                    },
+                    {
+                        "item": "M1",
+                        "count": 7
+                    },
+                    {
+                        "item": "L3",
+                        "count": 6
+                    },
+                    {
+                        "item": "K2",
+                        "count": 5
+                    },
+                    {
+                        "item": "S2",
+                        "count": 4
+                    },
+                    {
+                        "item": "B2",
+                        "count": 3
+                    },
+                    {
+                        "item": "D1",
+                        "count": 2
+                    },
+                    {
+                        "item": "J1",
+                        "count": 1
+                    }
+                ],
+                "non_null": 26032,
+                "largest": "W3",
+                "smallest": "99"
+            },
+            "fieldName": "beat",
+            "width": 148,
+            "description": "Beat of the address associated with the underlying Computer Aided Dispatch (CAD) event. Not necessarily where the Terry Stop occurred."
+        }
+    ],
+    "viewCount": 1082,
+    "hideFromDataJson": false,
+    "averageRating": 0,
+    "newBackend": false,
+    "rowsUpdatedBy": "avyg-ej9j",
+    "flags": [
+        "default",
+        "restorable",
+        "restorePossibleForType"
+    ],
+    "publicationGroup": 14145624,
+    "indexUpdatedAt": 1531409580,
+    "name": "Terry Stops",
+    "hideFromCatalog": false
+}
