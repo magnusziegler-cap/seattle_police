@@ -1,4 +1,4 @@
-from dash import Dash, html, dcc, Input, Output, dash_table, State, MATCH, ALL
+from dash import Dash, html, dcc, Input, Output, dash_table, State, ALL
 import dash_bootstrap_components as dbc
 import pandas as pd
 import numpy as np
@@ -10,6 +10,7 @@ import joblib
 # Statics
 SERVER_BASE = "127.0.0.1"
 PORT = "8000"
+PATH_TO_MODEL = '.\\models\\model_and_encoder.joblib'
 
 app = Dash(__name__,
         title="Seattle Police What If Scenario Viewer",
@@ -23,35 +24,29 @@ collapse_scenario = html.Div(
             id="button_collapse_scenario",
             n_clicks=0,
         ),
-        html.Div(children=[
-                dbc.Switch(
-                    label="Display Manually Created or Automatic Scenario",
-                    id="scenario_switch",
-                    value=False),
-            ],
-            style={"display": "flex", "flexWrap": "wrap", "width":"80%"}
-        ),
         dbc.Collapse(
             children=[
-                dbc.Card(
-                    children=
-                        [
-                        dbc.CardBody("Scenario:"),
-                        dbc.Table(
-                            id="collapse_scenario_table", style={"display": "flex", "flexWrap": "wrap", "width":"80%"}),
-                        html.P(children=[],
-                            id="collapse_prediction_text"),
-                        html.Div(
-                            children=[
-                                dbc.Table(id="table-historical-data",style={"display": "flex", "flexWrap": "wrap", "width":"80%"})
-                            ],
-                            ),
-                        ]
+                dbc.Card(children=[
+                    dbc.CardBody(children=[
+                        html.H3("Scenario"),
+                        html.Div(children=[
+                            dbc.Switch(
+                                label="Display Manually Created or Automatic Scenario",
+                                id="scenario_switch",
+                                value=False),
+                        ]),
+                        dbc.Table(id="collapse_scenario_table"),
+                        html.H3("Arrest Prediction"),
+                        html.P(id="collapse_prediction_text"),
+                        html.H3("Historical Data"),
+                        html.P("If this scenario occured in the database, the previous occurences will be shown below."),
+                        dbc.Table(id="table-historical-data")
+                        ]),
+                    ]
                 ),
             ],
             id ="collapse_scenario",
             is_open=False,
-            style={"display": "flex", "width":"80%"}
             )
     ],
     style={"display": "flex", "flexWrap": "wrap", "width":"80%"})
@@ -63,10 +58,14 @@ collapse_encoding = html.Div(
             n_clicks=0),
         dbc.Collapse(
             children=[
-                dbc.CardBody("Encoding:"),
-                html.P(children=[],
-                    id="collapse_encoding_text"),
-            ],
+                dbc.Card(children=[
+                    dbc.CardBody(
+                        children=[
+                            html.P(children=[],
+                                id="collapse_encoding_text"),
+                        ]),
+                ]),
+                ],
             id = 'collapse_encoding',
             is_open=False,
         )
@@ -75,7 +74,6 @@ collapse_encoding = html.Div(
 )
 
 def create_creation_dropdowns():
-    PATH_TO_MODEL = 'models\\model_and_encoder.joblib'
     _,  encoder = joblib.load(PATH_TO_MODEL)
 
     features = encoder.feature_names
@@ -102,19 +100,23 @@ collapse_create = html.Div(
             n_clicks=0),
         dbc.Collapse(
             children=[
-                dbc.CardBody("Create your own scenario to evaluate:"),
-                html.P(children=[],
-                    id="collapse_create_text"),
-                creation_controls,
-                html.P(children=[],
-                    id="collapse_create_results_text"),
+                dbc.Card(children=[
+                    dbc.CardBody(children=[
+                        html.H3("Create your own scenario to evaluate:"),
+                        html.P(children=[],
+                            id="collapse_create_text"),
+                        creation_controls,
+                        dbc.Button(id="button_create_evaluate",
+                            children="Evaluate Created Scenario",
+                            n_clicks=0),
+                        html.P(children=[],
+                            id="collapse_create_results_text"),
+                    ]),
+                ]),
             ],
             id = 'collapse_create',
             is_open=False,
         ),
-        dbc.Button(id="button_create_evaluate",
-            children="Evaluate Created Scenario",
-            n_clicks=0)
     ],
     style={"display": "flex", "flexWrap": "wrap", "width":"80%"}
 )
@@ -147,7 +149,7 @@ app.layout = html.Div(
                     max=1000,
                     id="num_examples_input",
                     list="1,5,10,20",
-                    style={"width":"40%", "display":'inline-block'}),
+                    style={"width":"25%", "display":'inline-block'}),
             ],
             style={"display": "flex", "flexWrap": "wrap", "width":"80%"}
         ),
@@ -249,7 +251,7 @@ def query_random_scenario(n_clicks, n_examples):
         endpoint="/random_query"
         url="http://"+SERVER_BASE+":"+PORT+endpoint
         payload = {"n_examples":n_examples}
-        response = requests.post(url=url, timeout=5, params=payload, json=payload)
+        response = requests.post(url=url, timeout=30, params=payload, json=payload)
         scenario = response.json()
 
         return scenario
@@ -284,7 +286,8 @@ def update_datatable(scenario_manual, scenario_auto, switch_value):
         sort_action='native',
         hidden_columns=[],
         filter_action='native',
-        style_table={'overflowX': 'auto'},)
+        style_table={'overflowX': 'auto', 'maxWidth':"1080px",
+            "overflowY":'auto', "maxHeight":"720px"},)
 
     return fig
 
@@ -311,7 +314,8 @@ def print_scenario(scenario_manual, scenario_auto, switch_value):
         sort_action='native',
         hidden_columns=[],
         filter_action='native',
-        style_table={'overflowX': 'auto'})
+        style_table={'overflowX': 'auto', 'maxWidth':"1080px",
+            "overflowY":'auto', "maxHeight":"720px"})
 
     return fig
 
@@ -322,21 +326,39 @@ def print_scenario(scenario_manual, scenario_auto, switch_value):
     prevent_initial_callback=True,
 )
 def print_prediction(scenario_manual, scenario_auto, switch_value):
+    """_summary_
+
+    Args:
+        scenario_manual (_type_): _description_
+        scenario_auto (_type_): _description_
+        switch_value (_type_): _description_
+
+    Returns:
+        _type_: _description_
+    """
     if switch_value:
         scenario = scenario_manual
     else:
         scenario = scenario_auto
 
-    return f'Predicted Arrest(s): {pp.pformat(scenario["predictions"])}'
+    return f'Predicted Arrest(s): {scenario["predictions"]}'
 
 @app.callback(
-    [Output("collapse_create_results_text", "children"),
-    Output("scenario-manual", "data")],
+    Output("scenario-manual", "data"),
     [Input("button_create_evaluate","n_clicks"),
     Input({"type":"create-scenario-dropdown", "id":ALL}, 'value')],
     prevent_initial_call=True
 )
 def query_user_scenario(n_clicks, values):
+    """Query server with user generated scenario
+
+    Args:
+        n_clicks (_type_): evaluate button click counter
+        values (_type_): values from creation menus
+
+    Returns:
+        _type_: scenario
+    """
     if n_clicks:
         endpoint="/manual_query"
         url="http://"+SERVER_BASE+":"+PORT+endpoint
@@ -347,9 +369,7 @@ def query_user_scenario(n_clicks, values):
 
         st = f" Prediction: {scenario['predictions']}"
 
-        return st, scenario
+        return scenario
 
 if __name__ == '__main__':
-    app.run_server(debug=True)
-
-    
+    app.run_server(debug=False)

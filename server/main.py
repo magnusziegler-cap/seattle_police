@@ -1,6 +1,5 @@
-from random import Random
-from fastapi import FastAPI, HTTPException
-import uvicorn
+from typing import Union
+
 import joblib
 import json
 
@@ -11,13 +10,13 @@ from sklearn.naive_bayes import CategoricalNB
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.ensemble import RandomForestClassifier
 
+from fastapi import FastAPI, HTTPException
+import uvicorn
 from pydantic import Field, BaseModel
-from typing import Union
-
 
 ## Statics
-PATH_TO_MODEL = 'models\\model_and_encoder.joblib'
-PATH_TO_DATA = 'data\\police_stops.pickle'
+PATH_TO_MODEL = '.\\models\\model_and_encoder.joblib'
+PATH_TO_DATA = '.\\data\\police_stops.pickle'
 
 app = FastAPI(title="Seattle Police What If Scenario Generator/Interpreter")
 
@@ -34,8 +33,8 @@ def load_model_and_encoder(path_to_model:str)-> tuple:
     classifier, encoder = joblib.load(path_to_model) #load the model and encoder
     return classifier, encoder
 
-def load_dataframe(path:str)->pd.DataFrame:
-    """Load pandas dataframe
+def load_dataframe(path_to_data:str)->pd.DataFrame:
+    """Load pandas dataframe from pickle
 
     Args:
         path (_type_): path to object
@@ -43,15 +42,34 @@ def load_dataframe(path:str)->pd.DataFrame:
     Returns:
         _type_: dataframe
     """
-    dataframe = pd.read_pickle(path)
+    dataframe = pd.read_pickle(path_to_data)
     return dataframe
 
-def infer(X:np.ndarray, model:Union[CategoricalNB, RandomForestClassifier]):
+def infer(X:np.ndarray, model:Union[CategoricalNB, RandomForestClassifier])-> np.ndarray:
+    """ Predict label
+
+    Args:
+        X (np.ndarray): Input feature vector, or batch of
+        model (Union[CategoricalNB, RandomForestClassifier]): SciKitLearn Model
+
+    Returns:
+        np.ndarray: predictions
+    """
     predictions = model.predict(X)
     return predictions
 
 def reverse_dfquery(example:np.ndarray, encoder:OrdinalEncoder, dataframe:pd.DataFrame, verbose=False)->pd.DataFrame:
+    """Reverse Query the Dataframe
 
+    Args:
+        example (np.ndarray): Query 
+        encoder (OrdinalEncoder): Feature Encoder
+        dataframe (pd.DataFrame): Relevant Dataframe
+        verbose (bool, optional): Print query to console. Defaults to False.
+
+    Returns:
+        pd.DataFrame: Dataframe representing the result of the query
+    """
     result=pd.DataFrame(columns=dataframe.columns)
     features = encoder.feature_names
     
@@ -89,6 +107,17 @@ def reverse_dfquery(example:np.ndarray, encoder:OrdinalEncoder, dataframe:pd.Dat
     return result
 
 def check_results(predictions:np.ndarray, dataframe:pd.DataFrame)-> dict:
+    """ Compares predicted results against historical data
+    Calculates Predicted True Proportion and historical true proportion,
+    and returns those as a dict.
+
+    Args:
+        predictions (np.ndarray): _description_
+        dataframe (pd.DataFrame): _description_
+
+    Returns:
+        dict: {Predicted True Proportion, Historical True Proportion}
+    """
     if dataframe.size != 0:
         historical_true_proportion = dataframe["Arrest Flag"].sum()/dataframe.size
     else:
@@ -119,15 +148,15 @@ def randomly_generate_scenario(n_examples:int, encoder:OrdinalEncoder)->tuple:
     return  feature_vector, scenario
 
 def generate_scenario(feature_vector:np.ndarray, encoder:OrdinalEncoder)-> list:
+    """Perform inverse transform with Ordinal Encoder to generate scenario 
+    Args:
+        feature_vector (np.ndarray): Feature vector
+        encoder (OrdinalEncoder): Ordinal Encoder
+
+    Returns:
+        list: list of strings detailing the scenario described by the feature vector
+    """
     scenario = encoder.inverse_transform(feature_vector)
-    # features = encoder.categories_
-    # scenario=[]
-    # for i in range(len(encoder.feature_names)):
-    #     s=[]
-    #     for n in range(feature_vector.shape[0]):
-    #         condition = int(feature_vector[n,i])
-    #         s.append(features[i][condition])
-    #     scenario.append(s)
     return scenario
 
 def _make_next_id()->int:
@@ -136,15 +165,21 @@ def _make_next_id()->int:
     Returns:
         int: id number
     """
-    id =  max(Query.id for Query in Queries) + 1
-    return id
+    index =  max(Query.id for Query in Queries) + 1
+    return index
 
 ## data model
 class Query(BaseModel):
     """Data model for server
 
     Args:
-        BaseModel (_type_): _description_
+        id:int = identifier number
+        predictions: list of predicted arrests
+        feature_vector: feature vector for the query
+        features: string list of the features involved
+        scenario: string list of the feature specific labels
+        historical_data: dict of previous data, formatted from pandas.to_dict()
+        historical_results: dict of summary data from historical_data dataframe
     """
     id:int = Field(default_factory=_make_next_id, alias="id")
     predictions: Union[list[bool], None] = None
@@ -167,18 +202,42 @@ Queries = [Query(
 
 ## Endpoints
 @app.get("/queries")
-async def queries():
+async def queries()->list[Query]:
+    """Returns the list of Queries
+
+    Returns:
+        list[Query]: Query Database
+    """
     return Queries
 
 @app.get("/queries/{id}")
-async def query(id:int):
+async def query(id:int)->Query:
+    """ Retrieves a specific Query
+
+    Args:
+        id (int): requested query ID
+
+    Raises:
+        HTTPException: If requested ID does not exist in database.
+
+    Returns:
+        Query: Query results
+    """
     if id > len(Queries):
         raise HTTPException(status_code=404, detail="Item not found")
     else:
         return Queries[id]
 
 @app.post("/random_query", status_code=201)
-async def add_query(query: Query, n_examples:int=1):
+async def add_query(query:Query, n_examples:int=1)->Query:
+    """Query from randomly generated feture vector
+
+    Args:
+        n_examples (int): number of examples to generate
+
+    Returns:
+        Query: Query results
+    """
     feature_vector, scenario = randomly_generate_scenario(n_examples, encoder)
     features = encoder.feature_names
     predictions = infer(feature_vector, model)
@@ -197,9 +256,16 @@ async def add_query(query: Query, n_examples:int=1):
     Queries.append(query_rng)
     return query_rng
 
-#2,6,1,4,8,2,0,1,3
 @app.post("/manual_query", status_code=201)
-async def add_query_from_feature_vector(feature_vector:str):
+async def add_query_from_feature_vector(feature_vector:str)->Query:
+    """Query from manually generated feture vector
+    testable query:2,6,1,4,8,2,0,1,3
+    Args:
+        feature_vector (str): feature vector of correct length, comma separated
+
+    Returns:
+        Query: Query results
+    """
 
     feature_vector = feature_vector.split(',')
     feature_vector = np.array([[int(f) for f in feature_vector]])
@@ -221,17 +287,23 @@ async def add_query_from_feature_vector(feature_vector:str):
     return query
 
 @app.get("/encoding")
-async def encoder_info():
+async def encoder_info()->str:
+    """ Returns encoder information, detailing the mapping.
+    Features->categories, and the ordinal encoding
+
+    Returns:
+        str: _description_
+    """
     features = encoder.feature_names
     categories = encoder.categories_
 
-    mapping = dict()
+    mapping = {}
     for i, feature in enumerate(features):
         mapping[feature] = list(categories[i])
 
     return json.dumps(mapping)
 
-## start-up methods
+## start-up server methods
 model, encoder = load_model_and_encoder(PATH_TO_MODEL)
 dataframe = load_dataframe(PATH_TO_DATA)
 uvicorn.run(app)
