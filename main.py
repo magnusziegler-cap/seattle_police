@@ -1,4 +1,5 @@
-from fastapi import FastAPI
+from random import Random
+from fastapi import FastAPI, HTTPException
 import uvicorn
 import joblib
 import json
@@ -10,61 +11,18 @@ from sklearn.naive_bayes import CategoricalNB
 from sklearn.preprocessing import OrdinalEncoder
 from sklearn.ensemble import RandomForestClassifier
 
+from pydantic import Field, BaseModel
+from typing import Union
+
+
 ## Statics
 PATH_TO_MODEL = 'models\\model_and_encoder.joblib'
 PATH_TO_DATA = 'data\\police_stops.pickle'
 
-## start app
 app = FastAPI(title="Seattle Police What If Scenario Generator/Interpreter")
 
-## functions
-@app.get("/")
-def home():
-    """Server root
-
-    Returns:
-        _type_: _description_
-    """
-    return {"message":"hello World"}
-
-def json_to_numpy(jsondata:str, field:str):
-    """json to numpy
-    Args:
-        jsondata (str): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    as_dict = json.loads(jsondata)
-    return np.array(as_dict[field])
-
-def numpy_to_json(array):
-    """numpy to json
-
-    Args:
-        array (_type_): _description_
-
-    Returns:
-        _type_: _description_
-    """
-    return json.dumps({array.tolist()})
-
-@app.post("/predict")
-def infer(feature_vector:list)->list:
-    """inference
-
-    Args:
-        input (str): _description_
-
-    Returns:
-        list: _description_
-    """
-    feature_vector = json.loads(feature_vector)
-    feature_vector = json_to_numpy(feature_vector, field="feature_vector")
-    predictions = model.predict(feature_vector)
-    return json.dumps({"predictions":predictions.tolist()})
-
-def load_model_and_encoder(path_to_model:str):
+# Functions, Non-Endpoints
+def load_model_and_encoder(path_to_model:str)-> tuple:
     """Load sklearn classifier(model) and encoder
 
     Args:
@@ -88,13 +46,62 @@ def load_dataframe(path:str)->pd.DataFrame:
     dataframe = pd.read_pickle(path)
     return dataframe
 
-@app.post("/get_scenario")
-def randomly_generate_scenario(n_examples:int=1)->tuple:
+def infer(X:np.ndarray, model:Union[CategoricalNB, RandomForestClassifier]):
+    predictions = model.predict(X)
+    return predictions
+
+def reverse_dfquery(example:np.ndarray, encoder:OrdinalEncoder, dataframe:pd.DataFrame, verbose=False)->pd.DataFrame:
+
+    result=pd.DataFrame(columns=dataframe.columns)
+    features = encoder.feature_names
+    
+    for n in range(example.shape[0]):
+        
+        stacked = ""
+        s =""
+        scenario = encoder.inverse_transform(example[n,:].reshape(1,-1))[0]
+
+        for i, condition in enumerate(scenario):
+
+            if (' ' in features[i]):
+                col = f'(`{features[i]}`=='
+            else:
+                col = f'({features[i]}=='
+
+            if isinstance(condition, str):
+                cond = f'"{condition}")'
+            else:
+                cond = f'{condition})'
+            
+            if i != encoder.n_features_in_-1:
+                s += col + cond +' and '
+            else:
+                s += col + cond
+            
+        stacked += s
+        
+        if verbose:
+            print("Query: ", stacked)
+            
+        temp = dataframe.query(expr=stacked, inplace=False)
+        result = pd.concat([result, temp])
+    
+    return result
+
+def check_results(predictions:np.ndarray, dataframe:pd.DataFrame)-> dict:
+    if dataframe.size != 0:
+        historical_true_proportion = dataframe["Arrest Flag"].sum()/dataframe.size
+    else:
+        historical_true_proportion = 0
+    prediction_true_proportion = predictions.sum()/len(predictions)
+    return {"Predicted True Proportion":prediction_true_proportion,
+        "Historical True Proportion":historical_true_proportion}
+
+def randomly_generate_scenario(n_examples:int, encoder:OrdinalEncoder)->tuple:
     """randomly generate a scenario
 
     Args:
         encoder (_type_): _description_
-        verbose (bool, optional): _description_. Defaults to False.
         n (int, optional): _description_. Defaults to 1.
 
     Returns:
@@ -109,67 +116,120 @@ def randomly_generate_scenario(n_examples:int=1)->tuple:
                 
     scenario = encoder.inverse_transform(feature_vector)
 
-    return  json.dumps({"feature_vector":feature_vector.tolist(),
-        "scenario":scenario.tolist()})
+    return  feature_vector, scenario
 
-@app.post("/get_historical_results")
-def reverse_dfquery(example:str)->str:
-    """_summary_
+def generate_scenario(feature_vector:np.ndarray, encoder:OrdinalEncoder)-> list:
+    scenario = encoder.inverse_transform(feature_vector)
+    # features = encoder.categories_
+    # scenario=[]
+    # for i in range(len(encoder.feature_names)):
+    #     s=[]
+    #     for n in range(feature_vector.shape[0]):
+    #         condition = int(feature_vector[n,i])
+    #         s.append(features[i][condition])
+    #     scenario.append(s)
+    return scenario
 
-    Args:
-        example (np.ndarray): _description_
-        encoder (OrdinalEncoder): _description_
-        dataframe (pd.DataFrame): _description_
-        verbose (bool, optional): _description_. Defaults to False.
-
-    Returns:
-        pd.DataFrame: _description_
-    """
-    example = json.loads(example)
-    example = json_to_numpy(example, field="feature_vector")
-
-    result=pd.DataFrame(columns=dataframe.columns)
-    features = encoder.feature_names    
-    for n in range(example.shape[0]):
-        stacked = ""
-        s =""
-        scenario = encoder.inverse_transform(example[n,:].reshape(1,-1))[0]
-        for i, condition in enumerate(scenario):
-            if ' ' in features[i]:
-                col = f'(`{features[i]}`=='
-            else:
-                col = f'({features[i]}=='
-
-            if isinstance(condition, str):
-                cond = f'"{condition}")'
-            else:
-                cond = f'{condition})'
-
-            if i != encoder.n_features_in_-1:
-                s += col + cond +' and '
-            else:
-                s += col + cond
-
-        stacked += s        
-        temp = dataframe.query(expr=stacked, inplace=False)
-        result = pd.concat([result, temp])
-    return result.to_json(orient="split")
-
-@app.post("/get_historical_results_summary")
-def check_results(predictions:list)->tuple:
-    """Check Results against historical database
-
-    Args:
-        predictions (np.ndarray): predicted outcome
-        dataframe (pd.DataFrame): historical data
+def _make_next_id()->int:
+    """generate next id in sequence based of length of list
 
     Returns:
-        _type_: tuple(prediction_true_proportion, historical_true_proportion)
+        int: id number
     """
-    predictions = np.ndarray(predictions)
-    historical_true_proportion = dataframe["Arrest Flag"].sum()/dataframe.size
-    prediction_true_proportion = predictions.sum()/len(predictions)
-    return prediction_true_proportion, historical_true_proportion
+    id =  max(Query.id for Query in Queries) + 1
+    return id
+
+## data model
+class Query(BaseModel):
+    """Data model for server
+
+    Args:
+        BaseModel (_type_): _description_
+    """
+    id:int = Field(default_factory=_make_next_id, alias="id")
+    predictions: Union[list[bool], None] = None
+    feature_vector: Union[list, None] = None
+    features: Union[list, None] = None
+    scenario: Union[list, None] = None
+    historical_data: Union[dict, None] = None
+    historical_results: Union[dict, None] = None
+
+## Warm-start the query database with blank-ish query
+Queries = [Query(
+            id=0,
+            predictions=None,
+            feature_vector=None,
+            features=None,
+            scenario=None,
+            historical_data=None,
+            historical_results=None)
+        ]
+
+## Endpoints
+@app.get("/queries")
+async def queries():
+    return Queries
+
+@app.get("/queries/{id}")
+async def query(id:int):
+    if id > len(Queries):
+        raise HTTPException(status_code=404, detail="Item not found")
+    else:
+        return Queries[id]
+
+@app.post("/random_query", status_code=201)
+async def add_query(query: Query, n_examples:int=1):
+    feature_vector, scenario = randomly_generate_scenario(n_examples, encoder)
+    features = encoder.feature_names
+    predictions = infer(feature_vector, model)
+    historical_data = reverse_dfquery(feature_vector, encoder, dataframe)
+    historical_results = check_results(predictions, historical_data)
+
+    query_rng = Query(
+        predictions=predictions.tolist(),
+        feature_vector=feature_vector.tolist(),
+        features=features,
+        scenario=scenario.tolist(),
+        historical_data=historical_data.to_dict(),
+        historical_results=historical_results
+        )
+
+    Queries.append(query_rng)
+    return query_rng
+
+#2,6,1,4,8,2,0,1,3
+@app.post("/manual_query", status_code=201)
+async def add_query_from_feature_vector(feature_vector:str):
+
+    feature_vector = feature_vector.split(',')
+    feature_vector = np.array([[int(f) for f in feature_vector]])
+
+    predictions = infer(feature_vector, model)
+    scenario = generate_scenario(feature_vector, encoder)
+    features = encoder.feature_names
+    historical_data = reverse_dfquery(feature_vector, encoder, dataframe)
+    historical_results = check_results(predictions, historical_data)
+    query = Query(
+        predictions=predictions.tolist(),
+        feature_vector=feature_vector.tolist(),
+        features = features,
+        scenario=scenario.tolist(),
+        historical_data=historical_data.to_dict(),
+        historical_results=historical_results
+        )
+    Queries.append(query)
+    return query
+
+@app.get("/encoding")
+async def encoder_info():
+    features = encoder.feature_names
+    categories = encoder.categories_
+
+    mapping = dict()
+    for i, feature in enumerate(features):
+        mapping[feature] = list(categories[i])
+
+    return json.dumps(mapping)
 
 ## start-up methods
 model, encoder = load_model_and_encoder(PATH_TO_MODEL)
