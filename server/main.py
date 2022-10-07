@@ -2,6 +2,7 @@ from typing import Union
 
 import joblib
 import json
+import pickle
 
 import pandas as pd
 import numpy as np
@@ -13,6 +14,8 @@ from sklearn.ensemble import RandomForestClassifier
 from fastapi import FastAPI, HTTPException
 import uvicorn
 from pydantic import Field, BaseModel
+
+import datetime
 
 ## Statics
 PATH_TO_MODEL = '.\\models\\model_and_encoder.joblib'
@@ -168,6 +171,21 @@ def _make_next_id()->int:
     index =  max(Query.id for Query in Queries) + 1
     return index
 
+def save_database(queries) -> None:
+    with open('seattle_what_ifs.pickle', 'wb') as file_handle:
+        pickle.dump(queries, file_handle, protocol=pickle.HIGHEST_PROTOCOL)
+
+def update_database(query, filename) -> None:
+    with open(filename, 'a') as file_handle:
+        file_handle.write(str(query))
+
+def create_database():
+    timestamp = datetime.datetime.strftime(datetime.datetime.now(),format="%Y%m%d_%H%M")
+    filename = f'seattle_police_whatif_queries_{timestamp}.txt)'
+    with open(filename, 'x+') as file_handle:
+        file_handle.write("")
+    return filename
+
 ## data model
 class Query(BaseModel):
     """Data model for server
@@ -244,7 +262,7 @@ async def add_query(query:Query, n_examples:int=1)->Query:
     historical_data = reverse_dfquery(feature_vector, encoder, dataframe)
     historical_results = check_results(predictions, historical_data)
 
-    query_rng = Query(
+    query = Query(
         predictions=predictions.tolist(),
         feature_vector=feature_vector.tolist(),
         features=features,
@@ -253,8 +271,11 @@ async def add_query(query:Query, n_examples:int=1)->Query:
         historical_results=historical_results
         )
 
-    Queries.append(query_rng)
-    return query_rng
+    Queries.append(query)
+
+    update_database(query, FILENAME)
+
+    return query
 
 @app.post("/manual_query", status_code=201)
 async def add_query_from_feature_vector(feature_vector:str)->Query:
@@ -284,6 +305,9 @@ async def add_query_from_feature_vector(feature_vector:str)->Query:
         historical_results=historical_results
         )
     Queries.append(query)
+
+    update_database(query, FILENAME)
+
     return query
 
 @app.get("/encoding")
@@ -306,4 +330,5 @@ async def encoder_info()->str:
 ## start-up server methods
 model, encoder = load_model_and_encoder(PATH_TO_MODEL)
 dataframe = load_dataframe(PATH_TO_DATA)
+FILENAME = create_database()
 uvicorn.run(app)

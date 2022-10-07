@@ -367,8 +367,6 @@ def query_user_scenario(n_clicks, values):
         response = requests.post(url=url, timeout=10, params=payload, json=payload)
         scenario = response.json()
 
-        st = f" Prediction: {scenario['predictions']}"
-
         return scenario
 
 if __name__ == '__main__':
