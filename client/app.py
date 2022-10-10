@@ -1,7 +1,6 @@
 from dash import Dash, html, dcc, Input, Output, dash_table, State, ALL
 import dash_bootstrap_components as dbc
 import pandas as pd
-import numpy as np
 import json
 import requests
 import pprint as pp
